@@ -22,7 +22,7 @@ pipeline {
                 
                 // Copy WAR file to Tomcat's webapps directory (update path accordingly)
                 sh '''
-                    cp /home/xubuntu/.jenkins/workspace/edureka-jenkins.maven.assignment2/target/edureka-jenkins.maven.assignment2.war /home/xubuntu/tomcat9/webapps/
+                    cp /home/xubuntu/.jenkins/workspace/edureka-jenkins.maven.assignment2/target/jenkins.maven.assignment2.war /home/xubuntu/tomcat9/webapps/
                     # Restart Tomcat to deploy the WAR file
                     sudo systemctl restart tomcat
                 '''
