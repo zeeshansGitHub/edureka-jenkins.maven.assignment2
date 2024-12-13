@@ -35,18 +35,21 @@ pipeline {
                 sh 'mvn package'
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the project to Tomcat...'
-                // Copy WAR file to Tomcat's webapps directory (update path accordingly)
-                sh '''
-                    cp target/*.war /home/xubuntu/tomcat9/webapps/
-                    # Restart Tomcat to deploy the WAR file
-                    sudo systemctl restart tomcat
-                '''
-            }
-        }
+       stage('Deploy') {
+    steps {
+        echo 'Deploying the project to Tomcat...'
+        // Verify the WAR file is built and present
+        sh 'ls target/'
+
+        // Copy WAR file to Tomcat's webapps directory (update path accordingly)
+        sh '''
+            cp target/edureka-jenkins.maven.assignment2.war /home/xubuntu/tomcat9/webapps/
+            # Restart Tomcat to deploy the WAR file
+            sudo systemctl restart tomcat
+        '''
     }
+ }
+}
     post {
         always {
             echo 'Pipeline execution completed.'
