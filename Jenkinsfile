@@ -10,7 +10,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'mvn package'  // This will generate the .war file in the target directory
+                // Clean and package the project to generate the WAR file
+                sh 'mvn clean package'
             }
         }
         stage('Deploy') {
