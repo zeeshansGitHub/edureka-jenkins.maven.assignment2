@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven_3.6.3'  // Ensure this matches your Maven installation name in Jenkins
-    }
     stages {
         stage('Checkout') {
             steps {
@@ -13,52 +10,19 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'mvn compile'
+                sh 'mvn package'  // This will generate the .war file in the target directory
             }
         }
-        stage('Code Review') {
+        stage('Deploy') {
             steps {
-                echo 'Running Code Review...'
-                // Example of a static code analysis tool like Checkstyle
-                sh 'mvn checkstyle:check'
+                echo 'Deploying the project to Tomcat...'
+                // Copy WAR file to Tomcat's webapps directory (update path accordingly)
+                sh '''
+                    cp target/edureka-jenkins.maven.assignment2.war /home/xubuntu/tomcat9/webapps/
+                    # Restart Tomcat to deploy the WAR file
+                    sudo systemctl restart tomcat
+                '''
             }
-        }
-        stage('Unit Test') {
-            steps {
-                echo 'Running Unit Tests...'
-                sh 'mvn test'
-            }
-        }
-        stage('Package') {
-            steps {
-                echo 'Packaging the project...'
-                sh 'mvn package'
-            }
-        }
-       stage('Deploy') {
-    steps {
-        echo 'Deploying the project to Tomcat...'
-        // Verify the WAR file is built and present
-        sh 'ls target/'
-
-        // Copy WAR file to Tomcat's webapps directory (update path accordingly)
-        sh '''
-            cp target/edureka-jenkins.maven.assignment2.war /home/xubuntu/tomcat9/webapps/
-            # Restart Tomcat to deploy the WAR file
-            sudo systemctl restart tomcat
-        '''
-    }
- }
-}
-    post {
-        always {
-            echo 'Pipeline execution completed.'
-        }
-        success {
-            echo 'Pipeline executed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Check logs for details.'
         }
     }
 }
