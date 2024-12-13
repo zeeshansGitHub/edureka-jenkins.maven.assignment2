@@ -1,8 +1,13 @@
-stage('Build') {
-    when {
-        branch 'main' // Replace 'main' with the actual branch name if different
-    }
-    steps {
-        echo 'Building...'
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            when {
+                branch 'main'
+            }
+            steps {
+                echo 'Building...'
+            }
+        }
     }
 }
