@@ -1,10 +1,8 @@
-pipeline {
-    agent any
-    stages {
-        stage('Test Script') {
-            steps {
-                echo 'Testing basic pipeline setup...'
-            }
-        }
+stage('Build') {
+    when {
+        branch 'main' // Replace 'main' with the actual branch name if different
+    }
+    steps {
+        echo 'Building...'
     }
 }
