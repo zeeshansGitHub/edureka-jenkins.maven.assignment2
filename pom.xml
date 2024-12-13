@@ -5,17 +5,18 @@
     <groupId>zeeshan.edureka</groupId>
     <artifactId>jenkins.maven.assignment2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-   
-    <packaging>war</packaging>
 
+    <packaging>war</packaging>
 
     <name>React.js Blank Project (from https://github.com/making/maven-reactjs-blank)</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <build>
         <plugins>
+            <!-- Plugin for running Gulp to build React app -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -38,6 +39,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Plugin to copy resources to META-INF/resources -->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
@@ -58,6 +61,16 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Mojo Maven WAR plugin for packaging the application -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <warName>${project.artifactId}</warName>
+                </configuration>
             </plugin>
         </plugins>
     </build>
