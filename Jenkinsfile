@@ -1,9 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Debug') {
             steps {
-                echo 'Building...'
+                echo "Branch: ${env.BRANCH_NAME}"
+                echo 'Pipeline is running.'
             }
         }
     }
