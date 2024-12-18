@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        SONAR_TOKEN = credentials('sonar-token') // Reference the SonarQube token credential
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -10,7 +13,10 @@ pipeline {
         stage('Code Review') {
             steps {
                 echo 'Running static code analysis...'
-                sh 'mvn sonar:sonar' // Requires SonarQube configuration
+                sh '''
+                    mvn sonar:sonar \
+                        -Dsonar.login=$SONAR_TOKEN // Pass the SonarQube token securely
+                '''
             }
         }
         stage('Unit Test') {
