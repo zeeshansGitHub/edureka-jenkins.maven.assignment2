@@ -15,8 +15,8 @@ pipeline {
                 echo 'Running static code analysis...'
                 sh '''
                     mvn sonar:sonar \
-                        -Dsonar.login=$SONAR_TOKEN // Pass the SonarQube token securely
-                '''
+                        -Dsonar.login=$SONAR_TOKEN
+                ''' // Removed the inline comment from the shell command
             }
         }
         stage('Unit Test') {
